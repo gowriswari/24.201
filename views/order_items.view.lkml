@@ -4,6 +4,7 @@ view: order_items {
 
   dimension: id {
     primary_key: yes
+    #view_label: "items_id"
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -38,4 +39,18 @@ view: order_items {
     type: count
     drill_fields: [id, orders.id, inventory_items.id]
   }
+
+  measure:test1 {
+    type:number
+    sql: (
+       select (${orders.user_id}*${order_items.sale_price}) - sum(${users.age}) from `demo_db`.`order_items` where ${users.created_year} = EXTRACT(YEAR FROM "2017-10-1") GROUP BY ${orders.user_id}
+         );;
+  }
+  measure:test2 {
+    type:number
+    sql: (
+       select sum(${orders.user_id}*${order_items.sale_price}) - sum(${users.age}) from order_items where ${users.created_year} = EXTRACT(YEAR FROM CURRENT_DATE())
+         );;
+  }
+
 }
