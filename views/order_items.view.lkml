@@ -53,6 +53,44 @@ view: order_items {
        select sum(${orders.user_id}*${order_items.sale_price}) - sum(${users.age}) from order_items where ${orders.date_year} = EXTRACT(YEAR FROM CURRENT_DATE())
          );;
   }
+############################################################################################################
 
+  measure: sale_price_sum {
+    type: sum
+    sql: case
+             when ${sale_price} = '{% parameter sale_price_metric_picker %}'
+          then 1
+          else 0
+        END;;
+  }
+
+
+  parameter: sale_price_metric_picker {
+    description: "Use with the Sale Price Metric measure"
+    type: number
+    }
+  measure: dynamic_sum {
+    type: sum
+    sql: ${TABLE}.{% parameter para1 %} ;;
+  }
+
+  parameter: para1 {
+    type: unquoted
+    allowed_value: {
+      label: "sales_sum"
+      value: "sale_price"
+    }
+    allowed_value: {
+      label: "order_id_sum"
+      value: "order_id"
+    }
+  }
+  measure: liquid_condition_check {
+    type: number
+    sql:${TABLE}.id = {% condition liquid_condition_check1 %} order_items.id {% endcondition %};;
+  }
+  filter: liquid_condition_check1 {
+    type: number
+  }
 
 }

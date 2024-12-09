@@ -23,6 +23,7 @@ explore: billion_orders {
     relationship: many_to_one
   }
 }
+explore: test_template {}
 
 explore: connection_reg_r3 {}
 

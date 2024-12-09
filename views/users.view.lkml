@@ -17,6 +17,7 @@ view: users {
   }
   dimension: country {
     type: string
+    description: "testing_for_LSP"
     map_layer_name: countries
     sql: ${TABLE}.country ;;
   }
@@ -53,7 +54,17 @@ view: users {
     type: count
     drill_fields: [detail*]
   }
-
+  measure: test {
+    type: sum
+    sql: case
+    when ${age} = '{% parameter age_sum %}'
+      THEN 1
+      ELSE 0
+    END;;
+  }
+  parameter: age_sum {
+    type: unquoted
+  }
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
