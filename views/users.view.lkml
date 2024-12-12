@@ -26,6 +26,10 @@ view: users {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.created_at ;;
   }
+  dimension: data_test{
+   # type: date_time
+    sql: SELECT DATE(NOW());;
+  }
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;

@@ -2,6 +2,7 @@ connection: "thelook"
 
 # include all the views
 include: "/views/**/*.view.lkml"
+include: "/test_embed.dashboard.lookml"
 
 datagroup: gowri1_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
