@@ -1,4 +1,6 @@
+
 view: users {
+  #extends:[assessment]
   sql_table_name: demo_db.users ;;
   drill_fields: [id]
 

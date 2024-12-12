@@ -3,7 +3,7 @@ connection: "thelook"
 # include all the views
 include: "/views/**/*.view.lkml"
 include: "/test_embed.dashboard.lookml"
-
+include: "/assessment.view.lkml"
 datagroup: gowri1_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
@@ -272,6 +272,7 @@ explore: test_space_in_column_name {}
 explore: thor {}
 
 explore: users {
+
   sql_always_having: ${users.id} >= 100 ;;
 }
 
