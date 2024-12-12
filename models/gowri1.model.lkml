@@ -273,7 +273,7 @@ explore: thor {}
 
 explore: users {
 
-  sql_always_having: ${users.id} >= 100 ;;
+  sql_always_having: ${users.id} > 100 ;;
 }
 
 explore: user_data {

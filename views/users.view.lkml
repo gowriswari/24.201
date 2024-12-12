@@ -19,10 +19,16 @@ view: users {
   }
   dimension: country {
     type: string
-    description: "testing_for_LSP"
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+    html:  {% if value =="Australia" %}
+          <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Flag_of_Australia_%28converted%29.svg/383px-Flag_of_Australia_%28converted%29.svg.png" </p>
+          {% elsif value == "Austria" %} <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Flag_of_Austria_%28state%29.svg/237px-Flag_of_Austria_%28state%29.svg.png"} </p>
+
+        {% endif %};;
   }
+
+
   dimension_group: created {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
