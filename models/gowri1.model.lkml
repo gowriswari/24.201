@@ -11,10 +11,10 @@ datagroup: gowri1_default_datagroup {
 
 persist_with: gowri1_default_datagroup
 
-access_grant: users_test1 {
-  user_attribute: users_test
-  allowed_values: [ "users" ]
-}
+#access_grant: users_test1 {
+#  user_attribute: users_test
+#  allowed_values: [ "users" ]
+#}
 explore: billion_orders {
   join: orders {
     type: left_outer
@@ -123,6 +123,7 @@ explore: korean_string {}
 explore: map_layer {}
 
 explore: orders {
+  sql_always_where: ${created_date} >= '2019-01-01' ;;
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
@@ -131,7 +132,10 @@ explore: orders {
 }
 
 explore: order_items {
-  required_access_grants: [users_test1]
+  #required_access_grants: [users_test1]
+  always_filter: {
+    filters: [users.state: "Alabama", orders.status: "PENDING"]
+  }
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
@@ -267,7 +271,9 @@ explore: test_space_in_column_name {}
 
 explore: thor {}
 
-explore: users {}
+explore: users {
+  sql_always_having: ${users.id} >= 100 ;;
+}
 
 explore: user_data {
   join: users {
