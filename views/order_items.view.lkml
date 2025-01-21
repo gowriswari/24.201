@@ -2,6 +2,28 @@ view: order_items {
   sql_table_name: demo_db.order_items ;;
   drill_fields: [id]
 
+
+  parameter: test_cross_filter{
+    type: unquoted
+    label: "Testing the cross filtering using label_from_parameter"
+    allowed_value: {
+      label: "order_name"
+      value: "id"
+    }
+    allowed_value: {
+      label: "order_group"
+      value: "order_id"
+    }
+
+  }
+
+  dimension: dynamic_grouping {
+    type: string
+    label_from_parameter: test_cross_filter
+    sql: ${TABLE}.{% parameter test_cross_filter %} ;;
+
+  }
+
   dimension: id {
     primary_key: yes
     #view_label: "items_id"
